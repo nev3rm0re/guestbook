@@ -3,7 +3,6 @@
     {
         public function __construct() {
             $this->fields = array('user_id', 'message', 'created_at');
-            $this->belongsTo('GuestbookUser', array('as' => 'author', 'key' => 'user_id'));
         }
 
         public function getAuthor() {

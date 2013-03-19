@@ -43,28 +43,4 @@
             $properties = array_merge(array_keys($this->relations(), $properties));
             return in_array($key, $properties);
         }
-
-        public function belongsTo($object, $options = array())
-        {
-            $options['class'] = $object;
-            if (array_key_exists('as', $options)) {
-                $field_name = $options['as'];
-            } else {
-                $field_name = $object;
-            }
-
-            $this->relations[$field_name] = $options;
-        }
-
-        public function hasMany($object, $options = array())
-        {
-            $options['class'] = $object;
-            if (array_key_exists('as', $options)) {
-                $field_name = $options['as'];
-            } else {
-                $field_name = $object;
-            }
-
-            $this->relations[$field_name] = $options;
-        }
     }
