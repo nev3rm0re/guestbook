@@ -3,7 +3,8 @@
     {
         private static $instance;
         private function __construct() {}
-        public static function getInstance() {
+        public static function getInstance()
+        {
             if (self::$instance === null) {
                 self::$instance = new self();
             }
@@ -28,7 +29,14 @@
             return $this->getServiceLocator()->buildViewManager();
         }
 
-        public function getView($view) {
+        /**
+         * Gets named view from ViewManager
+         *
+         * @param  string $view
+         * @return View
+         */
+        public function getView($view)
+        {
             return $this->getViewManager()->getView($view);
         }
 
@@ -36,6 +44,10 @@
             return $this->getServiceLocator()->buildStorage();
         }
 
+        /**
+         * Matches GET request to controller methods
+         * @return string
+         */
         public function matchRequest() {
             if (array_key_exists('action', $_GET)) {
                 switch ($_GET['action']) {
@@ -169,7 +181,7 @@
 
             $user = $storage->findBy('GuestbookUser', 'username', $username);
 
-            $view = $this->getView('default');
+            $view = $this->getView('homepage');
             $view->display(array('posts' => $user->getPosts(), 'sub_title' => 'Posts by ' . $user['name']));
         }
 
