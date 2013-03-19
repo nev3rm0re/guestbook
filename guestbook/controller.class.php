@@ -71,14 +71,14 @@
             $action = $this->matchRequest();
 
             $method_name = "execute$action";
-            if (method_exists($this, $method_name)) {
-                try {
-                    $this->$method_name();
-                } catch (Exception $e) {
-                    $this->displayErrorPage($e);
-                }
-            } else {
-                $this->executeHomepage();
+            if (!method_exists($this, $method_name)) {
+                $method_name = 'executeHomepage';
+            }
+
+            try {
+                $this->$method_name();
+            } catch (Exception $e) {
+                $this->displayErrorPage($e);
             }
         }
 
@@ -180,6 +180,10 @@
             $username = $_GET['author'];
 
             $user = $storage->findBy('GuestbookUser', 'username', $username);
+
+            if ($user === false) {
+                $this->redirect('homepage');
+            }
 
             $view = $this->getView('homepage');
             $view->display(array('posts' => $user->getPosts(), 'sub_title' => 'Posts by ' . $user['name']));
