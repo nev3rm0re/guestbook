@@ -13,14 +13,14 @@
 
         public function getController() {
             $controller_class = $this->config['controller']['class'];
-            $controller = $controller_class::getInstance();
+            $controller = call_user_func(array($controller_class, 'getInstance'));
             $controller->setServiceLocator($this);
             return $controller;
         }
 
         public function buildViewManager() {
             $view_manager_class = $this->config['viewManager']['class'];
-            return $view_manager_class::getInstance();
+            return call_user_func(array($view_manager_class, 'getInstance'));
         }
 
         private $config;
