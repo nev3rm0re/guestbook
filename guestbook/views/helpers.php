@@ -47,5 +47,8 @@
     }
 
     function safe_html($string) {
+        if (get_magic_quotes_gpc()) {
+            $string = stripslashes($string);
+        }
         return htmlentities($string, ENT_COMPAT, 'utf-8');
     }
